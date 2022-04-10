@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import queryString from "query-string";
 
 const AppContext = React.createContext();
 
@@ -22,17 +23,16 @@ export function CountdownProvider({ children }) {
   const [countdown, setCountdown] = useState(initialCountdown);
 
   useEffect(() => {
-      const newAppState = { ...app }
-      const newCountdownState = { ...countdown }
+    const newAppState = { ...app };
+    const newCountdownState = { ...countdown };
 
-      newAppState.isLoaded = true
-      newCountdownState.message = router.query.m || ""
-      newCountdownState.queryDate = router.query.t || ""
+    newAppState.isLoaded = true;
+    newCountdownState.message = router.query.m || "";
+    newCountdownState.queryDate = router.query.t || "";
 
-      setApp(newAppState)
-      setCountdown(newCountdownState)
-
-  }, [router.isReady])
+    setApp(newAppState);
+    setCountdown(newCountdownState);
+  }, [router.isReady]);
 
   function clearMessage(currentState) {
     const newState = { ...currentState };
@@ -51,33 +51,28 @@ export function CountdownProvider({ children }) {
     newState.queryDate = "";
     setCountdown(newState);
   }
-  
+
   function clearAll(currentState) {
     const newState = { ...currentState };
     newState.queryDate = "";
     newState.message = "";
     setCountdown(newState);
-    setRouter(newState)
+    setRouter(newState);
   }
 
   function setRouter(state) {
     if (!!state) {
-      let staet = countdown
-    }
-    router.push;
-    let newQueryString = "";
-    if (state.queryDate || state.message)
-      newQueryString += "/?";
-    if (state.queryDate && state.message) {
-      newQueryString += `t=${state.queryDate}`;
-      newQueryString += `&m=${state.message}`;
-    } else if (state.queryDate) {
-      newQueryString += `t=${state.queryDate}`;
-    } else if (state.message) {
-      newQueryString += `&m=${state.message}`;
+      let state = countdown;
     }
 
-    router.push(newQueryString, undefined, { shallow: true });
+    const queryObj = {}
+      
+    if (state.queryDate) queryObj.t = state.queryDate
+    if (state.message) queryObj.m = state.message
+
+    let query = "/?" + queryString.stringify(queryObj)
+
+    router.push(query, undefined, { shallow: true });
   }
 
   const exports = {
@@ -90,7 +85,7 @@ export function CountdownProvider({ children }) {
       clearDate: clearDate,
       clearAll: clearAll,
       setRouter,
-      setMessage
+      setMessage,
     },
   };
 

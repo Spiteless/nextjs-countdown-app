@@ -17,7 +17,8 @@ export default function Picker(props) {
 
   const handleAccept = () => {
     const newCountdownState = { ...countdown };
-    newCountdownState.queryDate = value.format("YYYY-MM-DD:HH:mm");
+    // newCountdownState.queryDate = value.format("YYYY-MM-DD:HH:mm");
+    newCountdownState.queryDate = value.format("YYYY-MM-DDTHH:mm:ss.sssZ");
     setCountdown(newCountdownState);
     setRouter(newCountdownState);
   };
