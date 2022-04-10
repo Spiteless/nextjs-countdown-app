@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import moment from "moment";
 
-export default function Timer({ timestamp }) {
-  const [targetTime, setTimer] = useState(moment());
-  const [currentTime, setCurrentTime] = useState(moment());
-  const timeBetween = moment.duration(targetTime.diff(currentTime));
-  const [runCount, setRunCount] = useState(0);
+import { useCountdown } from "../context/AppContext";
 
-  const router = useRouter();
+import TimerDisplay from "./TimerDisplay";
+
+export default function Timer(props) {
+  const { countdown, app } = useCountdown();
+
+  let target = moment(countdown.queryDate);
+  const diff = target.diff(moment());
+  const duration = moment.duration(diff);
+
+  const [currentTime, setCurrentTime] = useState(moment());
 
   useEffect(() => {
-    if (!router.isReady) return;
-    setTimer(moment(router.query.t));
-    console.log(`Timer use effect: ${runCount}`);
-    setRunCount(runCount + 1);
-  }, [router.isReady]);
+    target = moment(countdown.queryDate);
+  }, [countdown.query]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,30 +26,27 @@ export default function Timer({ timestamp }) {
     return () => clearInterval(interval);
   }, []);
 
-  const outputString = () => {
-    const data = [
-      [timeBetween.years(), "Years"],
-      [timeBetween.months(), "Months"],
-      [timeBetween.days(), "Days"],
-      [timeBetween.hours(), "Hours"],
-      [timeBetween.minutes(), "Minutes"],
-      [timeBetween.seconds(), "Seconds"],
-    ];
-    return data.filter((val) => val[0] > 0);
+  const outputString = (diff) => {
+    if (!!diff) {
+      return data.filter((val) => val[0] > 0);
+    }
+    return [];
   };
 
-  return (
-    <div>
-      <h2 className="counter">
-        {outputString().map((vals) => {
-          const [num, text] = vals;
-          return (
-            <span key={`${text}${num}`}>
-              {num} {text}{" "}
-            </span>
-          );
-        })}
-      </h2>
-    </div>
-  );
+  const data = {
+    start: currentTime,
+    end: target,
+    diff: diff,
+    duration: duration,
+    years: duration.years(),
+    months: duration.months(),
+    days: duration.days(),
+    hours: duration.hours(),
+    minutes: duration.minutes(),
+    seconds: duration.seconds(),
+    statement: target.format("dddd, MMMM Do YYYY, h:mm:ss a"),
+    timeleft: moment.utc(diff).format("HH:MM:ss"),
+  };
+
+  return <TimerDisplay data={data} />;
 }
