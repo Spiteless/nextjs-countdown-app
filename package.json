@@ -9,8 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.13.1",
+    "@date-io/moment": "^2.13.1",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.5.1",
+    "@mui/lab": "^5.0.0-alpha.75",
     "@mui/material": "^5.5.3",
     "moment": "^2.29.2",
     "next": "12.1.4",

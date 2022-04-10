@@ -1,48 +1,64 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import moment from 'moment'
 
-import Timer from '../components/Timer'
+import { useCountdown } from '../context/AppContext'
 
-export default function Home() {
+import DateTimePicker from '../components/DateTimePicker'
+import NavBar from '../components/NavBar'
+import EdgePanel from '../components/EdgePanel'
+import Footer from '../components/Footer'
+import MainContent from '../components/MainContent'
+import LoadingScreen from '../components/LoadingScreen'
+
+export default function Home(props) {
   const router = useRouter()
+  const { app, setApp, countdown, setCountdown } = useCountdown()
 
-  const [message, setMessage] = useState(". . .")
-  const [timestamp, setTimestamp] = useState("")
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const text = router.query.m
-    console.log("useEffect ran", text, router.query)
-    setMessage(router.query.m)
-    setTimestamp(router.query.t)
-  }, [router.isReady])
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
-  console.log(router)
+
   return (
-    <div className={styles.container}>
+    <Box container sx={{
+      minHeight: "100vh",
+      flexDirection: "column",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}>
       <Head>
         <title>Countdown App</title>
         <meta name="description" content="Created by Trillium Smith" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <Typography variant="h1" className={styles.title} sx={{ fontWeight: 'bold' }}>
-          {message}
-        </Typography>
+      <NavBar
+        drawerWidth={240}
+        handleDrawerToggle={handleDrawerToggle}
+      />
 
-        <Timer timestamp={timestamp} />
-      </main>
+      <Box as="main" sx={{
+        alignItems: "center",
+        justifyContent: "space-between",
+        display: "flex",
+        minHeight: "100vh"
+      }}>
+        {(app.isLoaded
+          ? <MainContent />
+          : <LoadingScreen />
+        )}
+      </Box>
 
-      <footer className={styles.footer}>
-        Powered by{" "}
-        <Typography sx={{ display: "inline-block", whiteSpace: "pre", color: 'blue', fontWeight: 'bold' }}>
-          {' Because();'}
-        </Typography>
-      </footer>
-    </div>
+      <Footer className={styles.footer} />
+    </Box>
   )
+
 }
