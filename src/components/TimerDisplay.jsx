@@ -1,7 +1,15 @@
 import { Typography, Box, Paper, Grid } from "@mui/material";
+import PublicTwoToneIcon from "@mui/icons-material/PublicTwoTone";
+import ScheduleTwoToneIcon from "@mui/icons-material/ScheduleTwoTone";
+import CalendarMonthTwoToneIcon from "@mui/icons-material/CalendarMonthTwoTone";
+import { blue, green, red, orange, yellow } from "@mui/material/colors";
+
+
+import IconsDisplay from "./Icons/IconsDisplay";
+import MinuteIcon from "./Icons/MinuteIcon";
 
 export default function TimerDisplay({ data }) {
-  let { years, months, days, hours, seconds, duration, statement } = data;
+  let { years, months, days, hours, minutes, seconds, duration, statement } = data;
 
   const yearsTest = !!years;
   const monthsTest = !!years || !!months;
@@ -32,6 +40,7 @@ export default function TimerDisplay({ data }) {
       </Paper>
     </Grid>
   );
+
   const interiorDisplay = (
     <>
       {yearsTest && (
@@ -68,7 +77,7 @@ export default function TimerDisplay({ data }) {
         sx={{
           p: "2px 4px",
           display: "flex",
-          alignItems: "center",
+          justifyContet: "center",
           flexDirection: "column",
           flexGrow: 1,
           minWith: 1,
@@ -81,12 +90,13 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          style={{ marginTop: 10, minHeight: "100%", height: "100%" }}
+          
+          style={{ justifyContent: "center", marginTop: 10, minHeight: "100%", height: "100%" }}
         >
           <Typography
             center
             variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center" }}
+            sx={{ fontWeight: "bold", textAlign: "center", justifyContent: "center" }}
           >
             {statement}
           </Typography>
@@ -96,10 +106,18 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          justifyContent="  "
           style={{ minHeight: "100%", height: "100%" }}
         >
           {duration.as("seconds") > 0 ? interiorDisplay : TimeElapsed}
+        </Grid>
+        <Grid
+          container
+          spacing={0}
+          direction="row"
+          alignItems="center"
+          style={{ minHeight: "100%", height: "100%" }}
+        >
+          <IconsDisplay data={data} />
         </Grid>
       </Paper>
     </Box>
