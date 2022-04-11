@@ -29,10 +29,13 @@ export default function Home(props) {
   return (
     <Box container sx={{
       minHeight: "100vh",
+      minWidth: "100vw",
       flexDirection: "column",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      margin: 0,
+      padding: 0,
     }}>
       <Head>
         <title>Countdown App</title>
@@ -49,7 +52,9 @@ export default function Home(props) {
         alignItems: "center",
         justifyContent: "space-between",
         display: "flex",
-        minHeight: "100vh"
+        minHeight: "100vh",
+        mt: 0,
+        mb: 0,
       }}>
         {(app.isLoaded
           ? <MainContent />
