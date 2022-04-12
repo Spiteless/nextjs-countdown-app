@@ -14,6 +14,8 @@ export default function MinuteIcon(props) {
     color: colorHelper(ratio),
   };
 
+  if (!ratio) return <HourglassFullTwoToneIcon style={style} {...props} />;
+
   if (seconds > 40) return <HourglassFullTwoToneIcon style={style} {...props} />;
   if (seconds > 20) return <HourglassBottomTwoToneIcon style={style} {...props} />;
   if (seconds > -1) return <HourglassEmptyTwoToneIcon style={style} {...props} />;

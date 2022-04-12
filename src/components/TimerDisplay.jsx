@@ -95,6 +95,7 @@ export default function TimerDisplay({ data }) {
             marginTop: 10,
             minHeight: "100%",
             height: "100%",
+            mx: 4,
           }}
         >
           <Typography
@@ -114,7 +115,15 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          style={{ minHeight: "100%", height: "100%" }}
+          style={{
+            minHeight: "100%",
+            height: "100%",
+            mx: 4,
+            px: 4,
+            paddingLeft: 40,
+            paddingRight: 40,
+            overflow: "hidden",
+          }}
         >
           {duration.as("seconds") > 0 ? interiorDisplay : TimeElapsed}
         </Grid>
@@ -123,7 +132,14 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          style={{ minHeight: "100%", height: "100%", my: 4 }}
+          style={{
+            minHeight: "100%",
+            height: "100%",
+            my: 4,
+            py: 4,
+            paddingLeft: 40,
+            paddingRight: 40,
+          }}
         >
           <IconsDisplay data={data} />
         </Grid>
