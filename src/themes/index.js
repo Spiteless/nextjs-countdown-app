@@ -1,13 +1,13 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
-import {purple, green, grey, yellow, red, orange} from '@mui/material/colors';
+import {purple, teal, green, grey, yellow, red, orange} from '@mui/material/colors';
 
 let theme = createTheme({
   palette: {
     primary: {
-      main: red[600],
+      main: teal[500],
     },
     secondary: {
-      main: orange[600],
+      main: "#FF8F8F",
     },
     dark: {
       main: grey[900],
