@@ -11,7 +11,7 @@ export default function Footer() {
   const { app, countdown, setCountdown } = useCountdown();
 
   return (
-    <AppBar color="primary" sx={{ top: "auto", bottom: 0 }}>
+    <AppBar color="primary" sx={{ top: "auto", bottom: 0, height: 38 }}>
       <Box
         as="footer"
         container
@@ -20,7 +20,7 @@ export default function Footer() {
           alignItems: "center",
           justifyContent: "center",
           mt: 1,
-          mb: 1,
+          mb: 0,
         }}
       >
         <Typography

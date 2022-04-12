@@ -4,18 +4,19 @@ import ScheduleTwoToneIcon from "@mui/icons-material/ScheduleTwoTone";
 import CalendarMonthTwoToneIcon from "@mui/icons-material/CalendarMonthTwoTone";
 import { blue, green, red, orange, yellow } from "@mui/material/colors";
 
-
 import IconsDisplay from "./Icons/IconsDisplay";
 import MinuteIcon from "./Icons/MinuteIcon";
 
 export default function TimerDisplay({ data }) {
-  let { years, months, days, hours, minutes, seconds, duration, statement } = data;
+  let { years, months, days, hours, minutes, seconds, duration, statement } =
+    data;
 
   const yearsTest = !!years;
-  const monthsTest = !!years || !!months;
-  const daysTest = !!years || !!months || !!days;
-  const hoursTest = !!years || !!months || !!days || !!hours;
-  const secondsTest = !!years || !!months || !!days || !!hours || !!seconds;
+  const monthsTest = yearsTest || !!months;
+  const daysTest = monthsTest || !!days;
+  const hoursTest = daysTest || !!hours;
+  const minutesTest = hoursTest || !!minutes;
+  const secondsTest = minutesTest || !!seconds;
 
   const TimeElapsed = (
     <Grid item xs>
@@ -41,38 +42,35 @@ export default function TimerDisplay({ data }) {
     </Grid>
   );
 
+  const renderInterior = (test, timeValue, timeWord) => {
+    if (test) {
+      return (
+        <Grid item xs>
+          {timeValue} {timeWord}
+        </Grid>
+      );
+    }
+    return <></>;
+  };
+
   const interiorDisplay = (
     <>
-      {yearsTest && (
-        <Grid item xs>
-          {years} Years
-        </Grid>
-      )}
-      {monthsTest && (
-        <Grid item xs>
-          {months} Months
-        </Grid>
-      )}
-      {daysTest && (
-        <Grid item xs>
-          {days} Days
-        </Grid>
-      )}
-      {hoursTest && (
-        <Grid item xs>
-          {hours} Hours
-        </Grid>
-      )}
-      {secondsTest && (
-        <Grid item xs>
-          {seconds} Seconds
-        </Grid>
-      )}
+      {renderInterior(yearsTest, years, "Years")}
+      {renderInterior(monthsTest, months, "Months")}
+      {renderInterior(daysTest, days, "Days")}
+      {renderInterior(hoursTest, hours, "Hours")}
+      {renderInterior(minutes, minutes, "Minutes")}
+      {renderInterior(seconds, seconds, "Seconds")}
     </>
   );
 
   return (
-    <Box sx={{ flexGrow: 1, minWidth: 280, whiteSpace: "nowrap" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        whiteSpace: "nowrap",
+      }}
+    >
       <Paper
         sx={{
           p: "2px 4px",
@@ -82,7 +80,9 @@ export default function TimerDisplay({ data }) {
           flexGrow: 1,
           minWith: 1,
           maxWidth: 1,
-          margin: 6,
+          maxWidth: 600,
+          my: 2,
+          mx: 4,
         }}
       >
         <Grid
@@ -90,13 +90,21 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          
-          style={{ justifyContent: "center", marginTop: 10, minHeight: "100%", height: "100%" }}
+          style={{
+            justifyContent: "center",
+            marginTop: 10,
+            minHeight: "100%",
+            height: "100%",
+          }}
         >
           <Typography
             center
             variant="h5"
-            sx={{ fontWeight: "bold", textAlign: "center", justifyContent: "center" }}
+            sx={{
+              fontWeight: "bold",
+              textAlign: "center",
+              justifyContent: "center",
+            }}
           >
             {statement}
           </Typography>
@@ -115,7 +123,7 @@ export default function TimerDisplay({ data }) {
           spacing={0}
           direction="row"
           alignItems="center"
-          style={{ minHeight: "100%", height: "100%" }}
+          style={{ minHeight: "100%", height: "100%", my: 4 }}
         >
           <IconsDisplay data={data} />
         </Grid>

@@ -14,7 +14,7 @@ export default function Picker(props) {
   const { app, countdown, setCountdown } = useCountdown();
 
   return (
-    <Box>
+    <Box sx={{ margin: 0, mb: 0 }}>
       <Paper
         sx={{
           p: "2px 4px",
@@ -23,14 +23,16 @@ export default function Picker(props) {
           alignItems: "center",
           minWith: 280,
           maxWidth: 600,
-          margin: 6,
+          my: 2,
+          mx: 4,
+          marginTop: 6, 
         }}
       >
         <Typography
           center
           variant="h3"
           // className={styles.title}
-          sx={{ fontWeight: "bold", textAlign: "center" }}
+          sx={{ fontWeight: "bold", textAlign: "center", mx: 4, my: 2 }}
         >
           {countdown.message}
         </Typography>
