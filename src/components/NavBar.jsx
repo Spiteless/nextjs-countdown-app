@@ -23,9 +23,9 @@ export default function NavBar({ drawerWidth, handleDrawerToggle }) {
   };
 
   return (
-    <AppBar position="fixed">
-      <Toolbar>
-        <Typography variant="h6" noWrap component="nav" sx={{ flexGrow: 1 }}>
+    <AppBar position="fixed" component="nav" sx={{display: "flex", alignItems: "center"}}>
+      <Toolbar sx={{maxWidth: 900, width: "100%"}}>
+        <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
           Countdown Timer
         </Typography>
 

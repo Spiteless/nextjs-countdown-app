@@ -8,8 +8,8 @@ import { useCountdown } from "../context/AppContext";
 
 export default function CustomizedInputBase() {
   const [value, setValue] = useState("");
-  const { countdown, setCountdown, funcs} = useCountdown();
-  const { setRouter } = funcs; 
+  const { countdown, setCountdown, funcs } = useCountdown();
+  const { setRouter } = funcs;
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -20,15 +20,22 @@ export default function CustomizedInputBase() {
     const newCountdownState = { ...countdown };
     newCountdownState.message = value;
     setCountdown(newCountdownState);
-    setRouter(newCountdownState)
+    setRouter(newCountdownState);
   };
 
   return (
     <Paper
       component="form"
-      sx={{ p: "2px 4px", display: "flex", alignItems: "center", minWith: 280, maxWidth: 600, margin: 6 }}
+      sx={{
+        p: "2px 4px",
+        display: "flex",
+        alignItems: "center",
+        minWith: 280,
+        maxWidth: 600,
+        margin: 6,
+        mb: 0
+      }}
       onSubmit={onSubmit}
-      
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}

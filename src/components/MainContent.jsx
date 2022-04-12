@@ -17,15 +17,18 @@ export default function MainContext() {
     <Box
       sx={{
         flexDirection: "column",
-        justifyContent: "space-around",
+        // justifyContent: "space-around",
+        alignItems: "center",
         display: "flex",
-        minHeight: "50vh",
+        minHeight: "100%",
+        margin: 0,
+        marginTop: 4,
       }}
     >
       {countdown.message ? (
-        <MessageDisplay />
+        <MessageDisplay sx={{ margin: 36, mb: 0 }} />
       ) : (
-        <MessagePicker sx={{ margin: 36 }} />
+        <MessagePicker sx={{ margin: 36, mb: 0 }} />
       )}
       {countdown.queryDate ? <Timer /> : <DateTimePicker sx={{ margin: 36 }} />}
     </Box>
