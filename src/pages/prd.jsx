@@ -3,32 +3,29 @@ import { getPostByFilename } from "../lib/getMarkdown";
 import { Box } from "@mui/material";
 
 export default function Prd(props) {
-  console.log(props);
-
   return (
     <Box
       container
       sx={{
         minHeight: "100vh",
+        minWidth: "100vw",
         flexDirection: "column",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        margin: 0,
-        padding: 0,
+        mx: 5,
       }}
     >
       <Box
         className={"boop"}
         sx={{
-          px: 30,
+          maxWidth: "800px",
+          mx: 2,
         }}
         dangerouslySetInnerHTML={{ __html: props.content }}
       />
     </Box>
   );
-
-  return <div>{props.content}</div>;
 }
 
 export async function getStaticProps({ params }) {
