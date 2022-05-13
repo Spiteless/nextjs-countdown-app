@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 import styles from "../styles/Home.module.css";
 
-import { useCountdown } from "../context/AppContext";
+import { useCountdown } from "@context/AppContext";
 
 export default function Footer() {
   const { app, countdown, setCountdown } = useCountdown();
